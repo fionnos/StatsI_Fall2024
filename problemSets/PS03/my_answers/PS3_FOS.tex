@@ -1,0 +1,231 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{graphicx,textcomp}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage[reqno]{amsmath}
+\usepackage{amsthm}
+\usepackage{fancyvrb}
+\usepackage{amssymb,enumerate}
+\usepackage[all]{xy}
+\usepackage{endnotes}
+\usepackage{lscape}
+\newtheorem{com}{Comment}
+\usepackage{float}
+\usepackage{hyperref}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+\usepackage[compact]{titlesec}
+\usepackage{dcolumn}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multirow}
+\usepackage{xcolor}
+\newcolumntype{.}{D{.}{.}{-1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\definecolor{light-gray}{gray}{0.65}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\newcommand{\Sref}[1]{Section~\ref{#1}}
+\newtheorem{hyp}{Hypothesis}
+
+\title{Problem Set 3}
+\date{Due: November 11, 2024}
+\author{Applied Stats/Quant Methods 1}
+
+
+\begin{document}
+	\maketitle
+	\section*{Instructions}
+	\begin{itemize}
+		\item Please show your work! You may lose points by simply writing in the answer. If the problem requires you to execute commands in \texttt{R}, please include the code you used to get your answers. Please also include the \texttt{.R} file that contains your code. If you are not sure if work needs to be shown for a particular problem, please ask.
+	\item Your homework should be submitted electronically on GitHub.
+	\item This problem set is due before 23:59 on Sunday November 11, 2024. No late assignments will be accepted.
+
+	\end{itemize}
+
+		\vspace{.25cm}
+	
+\noindent In this problem set, you will run several regressions and create an add variable plot (see the lecture slides) in \texttt{R} using the \texttt{incumbents\_subset.csv} dataset. Include all of your code.
+
+	\vspace{.5cm}
+\section*{Question 1}
+\vspace{.25cm}
+\noindent We are interested in knowing how the difference in campaign spending between incumbent and challenger affects the incumbent's vote share. 
+	\begin{enumerate}
+		\item Run a regression where the outcome variable is \texttt{voteshare} and the explanatory variable is \texttt{difflog}.	
+		
+		\lstinputlisting[language=R, firstline=44, lastline=45]{PS3_FOS.R}  
+		\begin{verbatim}
+		Coefficients:
+		(Intercept)      difflog  
+				0.57903      0.04167  
+		\end{verbatim}
+		\vspace{2cm}
+		\item Make a scatterplot of the two variables and add the regression line. 	
+		\lstinputlisting[language=R, firstline=47, lastline=49]{PS3_FOS.R} 
+		\begin{figure}[h!]
+			\caption{\footnotesize{Model 1 }}
+			\vspace{.5cm}
+			\centering
+			\label{fig:Model 1"}			
+			\includegraphics[width=1.1\textwidth]{model1.png}
+		\end{figure}		
+		\vspace{2cm}
+		\item Save the residuals of the model in a separate object.	
+		\lstinputlisting[language=R, firstline=59, lastline=60]{PS3_FOS.R} 
+		\vspace{2cm}
+		\item Write the prediction equation.
+		\lstinputlisting[language=R, firstline=63, lastline=64]{PS3_FOS.R} 
+	\end{enumerate}
+	\vspace{.5cm}
+\newpage
+
+\section*{Question 2}
+\noindent We are interested in knowing how the difference between incumbent and challenger's spending and the vote share of the presidential candidate of the incumbent's party are related.	\vspace{.25cm}
+	\begin{enumerate}
+	\item Run a regression where the outcome variable is \texttt{presvote} and the explanatory variable is \texttt{difflog}.	
+	
+	\lstinputlisting[language=R, firstline=69, lastline=69]{PS3_FOS.R}  
+	\begin{verbatim}
+    Coefficients:
+	(Intercept)      difflog  
+			0.50758      0.02384  
+	\end{verbatim}
+	\vspace{2cm}
+	\item Make a scatterplot of the two variables and add the regression line. 	
+	\lstinputlisting[language=R, firstline=71, lastline=72]{PS3_FOS.R} 
+	\begin{figure}[h!]
+		\caption{\footnotesize{Model 2}}
+		\vspace{.5cm}
+		\centering
+		\label{fig:Model 2}			
+		\includegraphics[width=1.1\textwidth]{model2.png}
+	\end{figure}		
+	\vspace{2cm}
+	\item Save the residuals of the model in a separate object.	
+	\lstinputlisting[language=R, firstline=82, lastline=82]{PS3_FOS.R} 
+	\vspace{2cm}
+	\item Write the prediction equation.
+	\lstinputlisting[language=R, firstline=84, lastline=84]{PS3_FOS.R} 
+\end{enumerate}
+	
+	\newpage	
+\section*{Question 3}
+
+\noindent We are interested in knowing how the vote share of the presidential candidate of the incumbent's party is associated with the incumbent's electoral success.
+	\vspace{.25cm}
+	\begin{enumerate}
+		\item Run a regression where the outcome variable is \texttt{voteshare} and the explanatory variable is \texttt{presvote}.
+
+	\lstinputlisting[language=R, firstline=88, lastline=88]{PS3_FOS.R}  
+	\begin{verbatim}
+	Coefficients:
+	(Intercept)     presvote  
+			0.4413       0.3880 
+	\end{verbatim}
+	\vspace{2cm}
+	\item Make a scatterplot of the two variables and add the regression line. 	
+	\lstinputlisting[language=R, firstline=89, lastline=90]{PS3_FOS.R} 
+	\begin{figure}[h!]
+		\caption{\footnotesize{Model 3}}
+		\vspace{.5cm}
+		\centering
+		\label{fig:Model 3}			
+		\includegraphics[width=1.1\textwidth]{model3.png}
+	\end{figure}		
+	\vspace{2cm}
+	\item Write the prediction equation.
+	\lstinputlisting[language=R, firstline=102, lastline=102]{PS3_FOS.R} 
+	\end{enumerate}
+
+\newpage	
+\section*{Question 4}
+\noindent The residuals from part (a) tell us how much of the variation in \texttt{voteshare} is $not$ explained by the difference in spending between incumbent and challenger. The residuals in part (b) tell us how much of the variation in \texttt{presvote} is $not$ explained by the difference in spending between incumbent and challenger in the district.
+	\begin{enumerate}
+		\item Run a regression where the outcome variable is the residuals from Question 1 and the explanatory variable is the residuals from Question 2.	
+		\lstinputlisting[language=R, firstline=105, lastline=105]{PS3_FOS.R} 
+		\begin{verbatim}
+		Coefficients:
+		(Intercept)         res2  
+				-1.942e-18    2.569e-01  
+		\end{verbatim}
+		\vspace{2cm}
+		\item Make a scatterplot of the two residuals and add the regression line. 	
+		\lstinputlisting[language=R, firstline=106, lastline=107]{PS3_FOS.R} 
+		\begin{figure}[h!]
+			\caption{\footnotesize{Model 4}}
+			\vspace{.5cm}
+			\centering
+			\label{fig:Model 4}			
+			\includegraphics[width=1.1\textwidth]{model4.png}
+		\end{figure}		
+		\vspace{2cm}
+		\item Write the prediction equation.
+		\lstinputlisting[language=R, firstline=119, lastline=119]{PS3_FOS.R} 
+	\end{enumerate}
+	
+	\newpage	
+
+\section*{Question 5}
+\noindent What if the incumbent's vote share is affected by both the president's popularity and the difference in spending between incumbent and challenger? 
+	\begin{enumerate}
+		\item Run a regression where the outcome variable is the incumbent's \texttt{voteshare} and the explanatory variables are \texttt{difflog} and \texttt{presvote}.	
+		\lstinputlisting[language=R, firstline=122, lastline=126]{PS3_FOS.R} 
+		\begin{verbatim}
+		Coefficients:
+		(Intercept)      difflog     presvote  
+				0.44864      0.03554      0.25688  
+		\end{verbatim}
+		\begin{figure}[h!]
+			\caption{\footnotesize{Model 5}}
+			\vspace{.5cm}
+			\centering
+			\label{fig:Model 5}			
+			\includegraphics[width=1.1\textwidth]{model5.png}
+		\end{figure}		
+		\vspace{5cm}
+		\item Write the prediction equation.	
+		\lstinputlisting[language=R, firstline=132, lastline=132]{PS3_FOS.R} 
+		\vspace{5cm}
+		\item What is it in this output that is identical to the output in Question 4? Why do you think this is the case?
+		\vspace{1cm}
+						
+	\end{enumerate}
+\vspace{3cm}
+		Upon closer inspection of the coefficients found for Question 5 and Question 4, we can see that the coefficient modifying \texttt{presvote} in Question 5, 0.25688, is identifical to the coefficient modifying the residuals of Question 2, i.e. the variance in \texttt{presvote} not explained by \texttt{difflog}. This is because this coefficient captures the relationship between variance in \texttt{voteshare} and \texttt{presvote} that cannot be explained by/is independent of \texttt{difflog}. This makes sense in the context of our multiple linear regression equation, where this coefficient should have nothing to do with \texttt{difflog}.
+		After digging, I discovered this is true because of the Frisch-Waugh-Lovell theorem, often used in Econometrics. 
+
+
+\end{document}
